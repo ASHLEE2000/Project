@@ -1,0 +1,6 @@
+python
+fastapi
+uvicorn
+qrcode
+pillow
+pydantic
