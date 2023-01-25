@@ -7,19 +7,21 @@ class block:
     ID : str
     name : str
     price : float
+    date : str
     prev_hash : str
     current_hash : str 
 
 
-    def __init__(self,ID, name,price) -> None:
+    def __init__(self,ID, name,price,date) -> None:
         self.ID = ID
         self.name = name
         self.price = price
+        self.date=date
         self.cal_block_no()
         self.prev_Hash()
         self.cal_hash()
         l1.add_block(self)
-        QR_gen.QR_co(self.ID,self.name,self.prev_hash,self.current_hash,self.block_no)
+        QR_gen.QR_co(self.ID,self.date,self.name,self.prev_hash,self.current_hash,self.block_no)
         
 
     def cal_block_no(self):
@@ -40,7 +42,9 @@ class block:
     def cal_hash(self):
         self.current_hash = len(self.ID)**2 +len(self.name)**3 + ((self.price/40)**3) 
         hashlib.sha256(str(self.current_hash).encode()).hexdigest()
-
+    
+    def get_block_no(self):
+        return self.block_no
     
 class list_of_blocks:
     list1 = []
@@ -61,6 +65,9 @@ class list_of_blocks:
             file.write("\n")
             file.write("price: ")
             file.write(str(i.price))
+            file.write("\n")
+            file.write("date of manufacturing: ")
+            file.write(str(i.date))
             file.write("\n")
             file.write("prev_hash: ")
             file.write( str(i.prev_hash))

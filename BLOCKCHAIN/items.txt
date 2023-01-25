@@ -4,3 +4,4 @@ uvicorn
 qrcode
 pillow
 pydantic
+opencv-python
