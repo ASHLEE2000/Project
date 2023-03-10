@@ -138,8 +138,10 @@ async def scan_code(request :Request, qr_file: UploadFile = File(...)):
     val= my_qr_scan.verif.veri(g)
     z="block found"
     y="details of the product..."
-    if (val):
+    if (val=="found"):
         return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':hash, 'prev_hash':prev_hash, 'id':id, 'date':date,'proof_of_work':proof_of_work,'e':z,'f':y}) 
+    if(val == "used"):
+        return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':"product scaned previously", 'prev_hash':"product scaned previously", 'id':"product scaned previously", 'date':"product scaned previously",'proof_of_work':"product scaned previously",'e':"this product was scanned previously",'f':"please contact the your product seller..."}) 
     else:
         return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':"invalid details", 'prev_hash':"invalid details", 'id':"invalid details", 'date':"invalid details",'proof_of_work':"invalid details",'e':"this product is not in out data",'f':"please contact the your product seller..."}) 
     
