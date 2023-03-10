@@ -1,10 +1,10 @@
 **************************-block 1-*************************
-ID: i5
-name: 1135g7
-price: 16789.0
-date of manufacturing: 01-11-2022
-proof of work: 8479881763.0
+ID: 1135g7
+name: i5
+price: 12345.0
+date of manufacturing: 27-11-2020
+proof of work: 58323253039.0
 prev_hash: 0
-current_hash: 0000c6da678ec1bcac1d8fc5c3ed6198bd05fe7d581cdee5e616e135c9f3903f
+current_hash: 0000341168d102ee6e508f21525dd9629ffb3335dc66112645c6a0e15b41f7f2
  ************************************************************
 
