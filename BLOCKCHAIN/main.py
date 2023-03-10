@@ -141,7 +141,8 @@ async def scan_code(request :Request, qr_file: UploadFile = File(...)):
     if (val):
         return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':hash, 'prev_hash':prev_hash, 'id':id, 'date':date,'proof_of_work':proof_of_work,'e':z,'f':y}) 
     else:
-        pass
+        return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':"invalid details", 'prev_hash':"invalid details", 'id':"invalid details", 'date':"invalid details",'proof_of_work':"invalid details",'e':"this product is not in out data",'f':"please contact the your product seller..."}) 
+    
 
 
 @app.get("/file/{name_file}")
