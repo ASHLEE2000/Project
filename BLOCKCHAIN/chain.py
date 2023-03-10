@@ -1,5 +1,6 @@
-import hashlib
+
 import QR_gen
+import hashing_code
 
 class block:
 
@@ -10,8 +11,10 @@ class block:
     date : str
     prev_hash : str
     current_hash : str 
-
-
+    proof_of_work : int
+    a : QR_gen.QR_co
+    d : str
+    
     def __init__(self,ID, name,price,date) -> None:
         self.ID = ID
         self.name = name
@@ -21,8 +24,11 @@ class block:
         self.prev_Hash()
         self.cal_hash()
         l1.add_block(self)
-        QR_gen.QR_co(self.ID,self.date,self.name,self.prev_hash,self.current_hash,self.block_no)
+        self.a = QR_gen.QR_co(self.proof_of_work,self.ID,self.date,self.name,self.prev_hash,self.current_hash,self.block_no)
         
+    def get_add(self):
+        c = self.a.get_ad()
+        return c
 
     def cal_block_no(self):
         if(len(l1.list1)==0):
@@ -33,18 +39,23 @@ class block:
     
     def prev_Hash(self):
         a = (self.block_no -1)
-        if (a<=0):
+        if (a<0):
             self.prev_hash = "0"
         else:
             prev_block = l1.find_prev_hash(l1, self.block_no)
             self.prev_hash = prev_block.current_hash 
 
     def cal_hash(self):
-        self.current_hash = len(self.ID)**2 +len(self.name)**3 + ((self.price/40)**3) 
-        hashlib.sha256(str(self.current_hash).encode()).hexdigest()
-    
+        a= hashing_code.g_b_h(self.block_no,self.ID,self.name,self.price,self.date,self.prev_hash)
+        self.current_hash= hashing_code.g_b_h.cal_hash(a)
+        self.proof_of_work=hashing_code.g_b_h.get_proof_val(a)
+
+
     def get_block_no(self):
         return self.block_no
+
+    def get_name(self):
+        self.d= QR_gen.QR_co.get_name(self.a)
     
 class list_of_blocks:
     list1 = []
@@ -69,6 +80,9 @@ class list_of_blocks:
             file.write("date of manufacturing: ")
             file.write(str(i.date))
             file.write("\n")
+            file.write("proof of work: ")
+            file.write(str(i.proof_of_work))
+            file.write("\n")
             file.write("prev_hash: ")
             file.write( str(i.prev_hash))
             file.write("\n")
@@ -87,8 +101,9 @@ class list_of_blocks:
 
 l1 = list_of_blocks
 
-#b1 = block("1135g7","is", 8000)
-#b2 = block("a2","name2", 40)
+#b1 = block("1135g7","is", 8000,'26-9-2022')
+#b2 = block("a2","name2", 40,'26-9-2022')
+#b3 = block("a2","name2", 40,'26-9-2022')
 #print(b1.block_no)
 #print(b1.prev_hash)
 #print(b1.current_hash)

@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>ENTER BLOCK</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-body{
-  margin: 0;
-  padding: 0;
-  background: url(https://www.almaviva.it/dam/jcr:6212e8ef-1ed6-40e2-a75f-b6fa7c814662/Blockchain_1280x720.jpg) no-repeat;
-  background-size: cover;
-  height: 100vh;
-  overflow: hidden;
-}
+  <style>
+		@import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
+		*{
+					margin: 0;
+					padding: 0;
+					box-sizing: border-box;
+					font-family: "Poppins", sans-serif;
+				  }
+				  body{
+					margin: 0;
+					padding: 0;
+					background: url('https://rb.gy/yeujhl') no-repeat;
+					background-size: cover;
+					height: 100vh;
+					overflow: hidden;
+				  }
 .navbar{
 	position: fixed;
 	height: 80px;
@@ -28,12 +26,10 @@ body{
 	background: rgba(0,0,0,0.5);
 }
 .navbar .logo{
-    color: white;
-    font-size: 50px;
-    font-family: sans-serif;
-    line-height: 80px;
-    padding: 0 100px;
-    font-weight: 600;
+    width: 300px;
+	height: auto;
+	padding: 10px 10px;
+	padding-left: 50px;
 }
 .navbar ul{
 	float: right;
@@ -41,24 +37,35 @@ body{
 }
 .navbar ul li{
 	list-style: none;
-	margin: 0 8px;
+	margin: 0px;
 	display: inline-block;
 	line-height: 80px;
 }
-.navbar ul li a{
+.navbar ul li{
+ 	list-style: none;
+ 	margin: 0 8px;
+	display: inline-block;
+	line-height: 80px;
+}
+
+.navbar ul li input{
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
 	font-size: 20px;
 	font-family: helvetica;
 	color: white;
 	padding: 6px 13px;
 	text-decoration: none;
-	transition: .4s;
-}
-.navbar ul li a.active,
-.navbar ul li a:hover{
-	background: rgb(232, 237, 239);
-    border:rgb(232, 237, 239);
-	border-radius: 2px;
-}
+					transition: .4s;
+				  }
+			  
+.navbar ul li input:hover{
+		padding: 10px;
+		background: aquamarine;
+		border: 1px solid rgb(26, 131, 131);
+		color: rgb(26, 131, 131);;
+		border-radius: 20px;
+	}
 .center{
   position: absolute;
   top: 50%;
@@ -178,16 +185,44 @@ input[type="submit"]:hover{
   
   
   <body>
-    <nav class="navbar">
-                <label class="logo">FakeChain</label>
-				<ul>
-					<li><a href="page1.html">Home</a></li>
-					<li><a href="page2.html">About</a></li>
-					<li><a href="#">Services</a></li>
-					<li><a href="page4.html">QR Code Scanner</a></li>
-					<li><a class="active" href="page3.html">Login</a></li>
-				</ul>
-			</nav>
+    
+<nav class="navbar">
+
+  <img src="https://rb.gy/bnazrq" alt="AuthenticWorks" class="logo">
+   <ul>
+    <li>
+      <form method="post" action="/">
+      <input type="submit" value="Home">
+      </form>
+    </li>
+          
+    <li>
+      <form method="post" action="/about">
+      <input type="submit" value="About">
+      </form>
+    </li>
+              
+                    
+    <li>
+      <form method="post" action="/about">
+      <input type="submit" value="Services">
+      </form>
+    </li>
+                    
+    <li>
+      <form method="post" action="/verify_product">
+      <input type="submit" value="QR Code Scanner">
+      </form>
+    </li>
+              
+    <li>
+      <form method="post" action="/sign_in">
+      <input type="submit" value="Sign_up">
+      </form>
+    </li>
+    </ul>
+  </nav>
+  
     <div class="center">
       <h1>WELCOM {{ n }}...</h1>
       <h1 class="h1_of">ENTER BLOCK</h1>

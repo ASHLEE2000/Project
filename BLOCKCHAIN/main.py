@@ -1,17 +1,29 @@
 import fastapi
-from fastapi import Request ,Depends, HTTPException, Form
+
+from os import getcwd
+from fastapi import Request ,Depends, HTTPException, Form, UploadFile,File
 import chain
-import QR_gen
+import my_qr_scan
 import all_user
+import client
+#import server
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse , FileResponse, RedirectResponse
+from fastapi.security import OAuth2AuthorizationCodeBearer, OAuth2PasswordBearer
+
 
 
 app = fastapi.FastAPI()
+#ser = serverEDIT.server_start()
 templates = Jinja2Templates(directory = "htmlfiles")
 staticfiles = StaticFiles(directory="./qrcodesImgs/")
-app.mount("/static", staticfiles, name="static")
+app.mount("/static", StaticFiles(directory="qrcodesImgs"), name="static")
+oauth2_schema = OAuth2PasswordBearer(tokenUrl="/log_in")
+
+async def get_current_user(token :str = Depends(oauth2_schema)):
+    pass
+
 
 # uviocorn main:app --reload
 # python -m uvicorn fast_api:app --reload
@@ -56,9 +68,16 @@ async def e_block(request :Request, name: str= Form(...),id : str = Form(...), p
     n1 =chain.block(name,id,price,date)
     context = {"request": request}
     b= chain.block.get_block_no(n1)
-    a= ("BLOCK-"+str(b)+".jpg")
+    c = chain.block.get_add(n1)
+    d = c.split("/")
+    e= d[6]
+    try:
+        client.sending()
+    except Exception as z:
+            print(z)
+    
     #return FileResponse(f"./qrcodesImgs/{a}")
-    return templates.TemplateResponse("blockEntered.html",context  )
+    return templates.TemplateResponse("blockEntered.html",{"request": request, "f":e, "e": c ,"e":c})
 
 
 #sixth endpoint
@@ -87,8 +106,49 @@ async def sign_up(request :Request):
 def home(request : Request):
     context = {'request': request}
     return templates.TemplateResponse("about.html", context) 
-  
+
+@app.post('/scan',response_class=HTMLResponse)
+async def scan_code(request :Request, qr_file: UploadFile = File(...)):
+    a= (qr_file.filename)
+    c = a.split(".")
+    d = c[0]
+    file_name = "name.jpg"
+
+    file_location = f"C:/Users/Ashley/Desktop/BLOCKCHAIN/{file_name}"
+
+    with open(file_location, "wb+") as file_object:
+      file_object.write(qr_file.file.read())
+    
+    e = my_qr_scan.d_data()
+    f = my_qr_scan.d_data.data(e)
+    dat= str(f)
+    dat2= dat.split('\n')
+    dat3 = dat2[0].split(': ')
+    proof_of_work = dat3[1]
+    dat3 = dat2[1].split(': ')
+    date = dat3[1]
+    dat3 = dat2[2].split(': ')
+    hash = dat3[1]
+    dat3 = dat2[3].split(': ')
+    prev_hash = dat3[1]
+    dat3 = dat2[4].split(': ')
+    id = dat3[1]
+    g = my_qr_scan.verif(hash,prev_hash,date,proof_of_work,id)
+    my_qr_scan.verif.veri(g)
+    val= my_qr_scan.verif.veri(g)
+    z="block found"
+    y="details of the product..."
+    if (val):
+        return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':hash, 'prev_hash':prev_hash, 'id':id, 'date':date,'proof_of_work':proof_of_work,'e':z,'f':y}) 
+    else:
+        pass
+
+
+@app.get("/file/{name_file}")
+def get_file(name_file: str):
+    return FileResponse(path=getcwd() + "/qrcodesImgs/" + name_file)
   #chain.block(ID,name,price)
     #file_path = "/qrcodesImgs/"
     #c= QR_gen.QR_co.block_no
     #return RedirectResponse("/enter_block/entered_block")
+
