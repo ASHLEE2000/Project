@@ -6,6 +6,7 @@ import chain
 import my_qr_scan
 import all_user
 import client
+import history
 #import server
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -105,7 +106,8 @@ async def sign_up(request :Request):
 @app.post('/about',response_class=HTMLResponse)
 def home(request : Request):
     context = {'request': request}
-    return templates.TemplateResponse("about.html", context) 
+    val = history.w.get_valuse()
+    return templates.TemplateResponse("about.html", {'request': request , 'value': val} ) 
 
 @app.post('/scan',response_class=HTMLResponse)
 async def scan_code(request :Request, qr_file: UploadFile = File(...)):
@@ -134,15 +136,20 @@ async def scan_code(request :Request, qr_file: UploadFile = File(...)):
     dat3 = dat2[4].split(': ')
     id = dat3[1]
     g = my_qr_scan.verif(hash,prev_hash,date,proof_of_work,id)
-    my_qr_scan.verif.veri(g)
+    #my_qr_scan.verif.veri(hash,prev_hash,date,proof_of_work,id)
     val= my_qr_scan.verif.veri(g)
     z="block found"
     y="details of the product..."
+    
     if (val=="found"):
+        a = history.write_file(hash,prev_hash,date,proof_of_work,id,z)
         return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':hash, 'prev_hash':prev_hash, 'id':id, 'date':date,'proof_of_work':proof_of_work,'e':z,'f':y}) 
+        
     if(val == "used"):
+        a = history.write_file(hash,prev_hash,date,proof_of_work,id,y)
         return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':"product scaned previously", 'prev_hash':"product scaned previously", 'id':"product scaned previously", 'date':"product scaned previously",'proof_of_work':"product scaned previously",'e':"this product was scanned previously",'f':"please contact the your product seller..."}) 
     else:
+        a = history.write_file(hash,prev_hash,date,proof_of_work,id,"invalid projects")
         return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':"invalid details", 'prev_hash':"invalid details", 'id':"invalid details", 'date':"invalid details",'proof_of_work':"invalid details",'e':"this product is not in out data",'f':"please contact the your product seller..."}) 
     
 

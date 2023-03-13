@@ -1,0 +1,22 @@
+
+ID: 1135g7
+date of manufacturing: 27-11-2020
+proof of work: 58323253039.0
+prev_hash: 0
+current_hash: 0000341168d102ee6e508f21525dd9629ffb3335dc66112645c6a0e15b41f7f2
+ value:details of the product...
+-------------------------
+ID: 1135g7
+date of manufacturing: 27-11-2020
+proof of work: 58323253039.0
+prev_hash: 0
+current_hash: 0000341168d102ee6e508f21525dd9629ffb3335dc66112645c6a0e15b41f7f2
+ value:details of the product...
+-------------------------
+ID: 1135g7
+date of manufacturing: 27-11-2020
+proof of work: 58323253039.0
+prev_hash: 0
+current_hash: 0000341168d102ee6e508f21525dd9629ffb3335dc66112645c6a0e15b41f7f2
+ value:details of the product...
+-------------------------

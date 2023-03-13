@@ -77,7 +77,7 @@ class verif:
         e=0
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("proof of work not found...")
                 break
             else:
@@ -89,7 +89,7 @@ class verif:
         e=0
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("date not found...")
                 break
             else:
@@ -102,7 +102,7 @@ class verif:
         e=0
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("block not found...")
                 break
             else:
@@ -115,7 +115,7 @@ class verif:
         e=0
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("block not found...")
                 break
             else:
@@ -139,7 +139,7 @@ class verif:
         
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("block not found...")
                 break
             else:
@@ -153,7 +153,7 @@ class verif:
         e=0
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("proof of work not found...")
                 break
             else:
@@ -165,7 +165,7 @@ class verif:
         e=0
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("date not found...")
                 break
             else:
@@ -178,7 +178,7 @@ class verif:
         e=0
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("block not found...")
                 break
             else:
@@ -191,7 +191,7 @@ class verif:
         e=0
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("block not found...")
                 break
             else:

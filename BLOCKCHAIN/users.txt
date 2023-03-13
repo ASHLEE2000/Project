@@ -1,4 +1,4 @@
 user id:1
 user name:ash
-password:12345678
-secret key 2:9b627c117f08
+password:1234
+secret key 2:62bf8575e4e4
