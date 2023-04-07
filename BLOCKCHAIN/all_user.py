@@ -1,4 +1,5 @@
 import QR_gen
+import connecting_to_mongo
 import secrets
 import pandas as pd
 
@@ -17,6 +18,7 @@ class users:
             u.add_user(self)
             self.id=users.user_ID()
             QR_gen.user_qr(username,password,self.id,self.key2)
+            connecting_to_mongo.enter_user_to_mongo(username,password,self.id,self.key2)
             QR_gen.U_csv.print_to_file(QR_gen.U_csv)
 
     def get_key2(self):

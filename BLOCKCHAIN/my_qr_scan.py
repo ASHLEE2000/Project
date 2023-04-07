@@ -1,5 +1,6 @@
 import cv2
 import usedproduct
+import connecting_to_mongo
 import pandas as pd
 
 class d_data:
@@ -187,7 +188,7 @@ class verif:
         
         if(self.c=="found"):
             abc =usedproduct.products(self.id2,self.prev2,self.date2,self.proof_of_work2,self.hash2)
-
+            ABC = connecting_to_mongo.enter_used_products_to_mongo(self.id2,self.prev2,self.date2,self.proof_of_work2,self.hash2)
 
 #abc = verif("00002a1ed4e1d1fb4562628271c21ff2e9b18b28f1edd073dcf623d329eda792","0","27-11-2020","817435.0","i5")
 #print(abc.a)

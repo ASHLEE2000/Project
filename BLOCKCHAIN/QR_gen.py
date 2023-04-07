@@ -2,6 +2,7 @@ import qrcode
 import shutil
 import os
 import pandas as pd
+import connecting_to_mongo
 
 class QR_co:
     block_no : str
@@ -17,7 +18,7 @@ class QR_co:
         g.f.append(str((prev_hash)))
         g.G.append(str((hash)))
         g.h.append(str((price)))
-        
+        a= connecting_to_mongo.enter_products_to_mongo(proof_of_work,id,date,name,prev_hash,hash,block_no,price)
         features = qrcode.QRCode(version=1, box_size=10, border=3)
         a= (f" proof of work: {proof_of_work}\ndate: {date}\n hash: {hash}\n prev_hash: {prev_hash}\n id: {id}")
         features.add_data(a)
