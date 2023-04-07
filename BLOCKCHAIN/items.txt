@@ -6,3 +6,4 @@ pillow
 pydantic
 multipart
 opencv-python
+openpyxl

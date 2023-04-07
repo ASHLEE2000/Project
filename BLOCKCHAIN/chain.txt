@@ -1,90 +1,10 @@
 **************************-block 1-*************************
 ID: 1135g7
 name: i5
-price: 12345.0
-date of manufacturing: 27-11-2020
-proof of work: 58323253039.0
-prev_hash: 0
-current_hash: 0000341168d102ee6e508f21525dd9629ffb3335dc66112645c6a0e15b41f7f2
- ************************************************************
-
-**************************-block 2-*************************
-ID: 1135g7
-name: i5
-price: 12345.0
-date of manufacturing: 27-11-2020
-proof of work: 5908418992.0
-prev_hash: 0000341168d102ee6e508f21525dd9629ffb3335dc66112645c6a0e15b41f7f2
-current_hash: 00006bbbe0319147f5600c7b8712fc736c3bd5b54f5dda0fc0c7ccb5e235c495
- ************************************************************
-
-**************************-block 3-*************************
-ID: 1135g7
-name: i5
-price: 12345.0
-date of manufacturing: 27-11-2020
-proof of work: 16869370963.0
-prev_hash: 00006bbbe0319147f5600c7b8712fc736c3bd5b54f5dda0fc0c7ccb5e235c495
-current_hash: 0000618ce366d1aab718818ac03f30bcf0fe2b046d8bc756cabaa0b85f9549e1
- ************************************************************
-
-**************************-block 4-*************************
-ID: 1135g7
-name: i5
-price: 12345.0
-date of manufacturing: 27-11-2020
-proof of work: 9049373428.0
-prev_hash: 0000618ce366d1aab718818ac03f30bcf0fe2b046d8bc756cabaa0b85f9549e1
-current_hash: 0000db06b74ad30721fa7500d777fb4a6de5b68acd8fd91bc91f038613281fe6
- ************************************************************
-
-**************************-block 5-*************************
-ID: 1135g7
-name: i5
-price: 12345.0
-date of manufacturing: 27-11-2020
-proof of work: 7740517451.0
-prev_hash: 0000db06b74ad30721fa7500d777fb4a6de5b68acd8fd91bc91f038613281fe6
-current_hash: 00001fbb654626578d0088ab1dbb4ff1899ca5e9957302cc4738be5d6aa5ba24
- ************************************************************
-
-**************************-block 6-*************************
-ID: 1135g7
-name: i5
-price: 12345.0
-date of manufacturing: 27-11-2020
-proof of work: 16218568964.0
-prev_hash: 00001fbb654626578d0088ab1dbb4ff1899ca5e9957302cc4738be5d6aa5ba24
-current_hash: 0000ffb5e1ec952d13e80e736df180ca979612a63c271083ef1a8b2bfd444b44
- ************************************************************
-
-**************************-block 7-*************************
-ID: 1135g7
-name: i5
-price: 12345.0
-date of manufacturing: 27-11-2020
-proof of work: 51995893747.0
-prev_hash: 0000ffb5e1ec952d13e80e736df180ca979612a63c271083ef1a8b2bfd444b44
-current_hash: 0000840d3c4d431b349e524d6ba34e0ea86ebb102140d1e4d6fc5833eb896894
- ************************************************************
-
-**************************-block 8-*************************
-ID: 1135g7
-name: i5
-price: 12345.0
-date of manufacturing: 27-11-2020
-proof of work: 116590700.0
-prev_hash: 0000840d3c4d431b349e524d6ba34e0ea86ebb102140d1e4d6fc5833eb896894
-current_hash: 0000161f59ab5d5929e48751df793e91832120051183b43322186fa3fdc09726
- ************************************************************
-
-**************************-block 9-*************************
-ID: 1135g7
-name: i5
 price: 1234.0
 date of manufacturing: 27-11-2020
-proof of work: 620711162.0
-prev_hash: 0000161f59ab5d5929e48751df793e91832120051183b43322186fa3fdc09726
-current_hash: 000072ff1b509e5a5647de74e0cd20d683a58ea733ec8b19776f01b5fa1fb406
+proof of work: 11659098.0
+prev_hash: 0
+current_hash: 0000918ce6967f9113901ce6ae58de966b0163a6faac41121d9c153dc90bcec3
  ************************************************************
 

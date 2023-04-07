@@ -2,6 +2,7 @@
 import QR_gen
 import hashing_code
 
+
 class block:
 
     block_no = 0
@@ -24,10 +25,11 @@ class block:
         self.prev_Hash()
         self.cal_hash()
         l1.add_block(self)
-        self.a = QR_gen.QR_co(self.proof_of_work,self.ID,self.date,self.name,self.prev_hash,self.current_hash,self.block_no)
+        self.a = QR_gen.QR_co(self.proof_of_work,self.ID,self.date,self.name,self.prev_hash,self.current_hash,self.block_no,price)
         
     def get_add(self):
         c = self.a.get_ad()
+        QR_gen.g.print_to_file(QR_gen.g)
         return c
 
     def cal_block_no(self):
@@ -59,7 +61,7 @@ class block:
     
 class list_of_blocks:
     list1 = []
-
+    
     def add_block(b = block):
         l1.list1.append(b)
         print(block.block_no)
@@ -91,6 +93,7 @@ class list_of_blocks:
             file.write("\n ")
             file.write("************************************************************\n\n")
         file.close()
+        
     
     def find_prev_hash(self,block_no):
         a = (block_no-1)
@@ -100,6 +103,9 @@ class list_of_blocks:
 
 
 l1 = list_of_blocks
+
+
+
 
 #b1 = block("1135g7","is", 8000,'26-9-2022')
 #b2 = block("a2","name2", 40,'26-9-2022')

@@ -1,5 +1,6 @@
 import cv2
 import usedproduct
+import pandas as pd
 
 class d_data:
     hash: str
@@ -63,7 +64,7 @@ class verif:
         
         for i in f_content:
             e=(e+1)
-            if(e>2000):
+            if(e>20000):
                 print("block not found...")
                 break
             else:
@@ -127,81 +128,49 @@ class verif:
 
         f.close()
 
-        f2 = open('usedblocks.txt','r')
-        f_content= f2.readlines()
+        
         #print(f_content)
         c2=False
         d2=False
         l2=False
         m2=False
         n2=False
-        e=0
-        
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("block not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                #print(data2,self.hash)
-                for data2 in data1:
-                    if(data2==self.hash):
-                        l2= True
-                        print("hash found...")
+        try:
+            df3 = pd.read_csv("Usedproducts.csv")
+            p_h = df3['prev_hash']
+            id = df3['ID']
+            hash = df3['current_hash']
+            pow = df3['proof_of_work']
+            date = df3['date']
 
-        e=0
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("proof of work not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                for data2 in data1:
-                    if(data2==self.proof_of_work):
-                        c2= True
-                        print("proof of work found...")
-        e=0
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("date not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                for data2 in data1:
-                    if(data2==self.date):
-                        print("date found...")
-                        d2= True
+            for AA in p_h:
+                if(str(AA)==self.prev2):
+                    c2=True
+            
+            for AB in id:
+                if(AB==self.id2):
+                    d2=True
+            
+            for AC in hash:
+                if(AC==self.hash2):
+                    l2=True
 
-        e=0
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("block not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                for data2 in data1:
-                    if(data2==self.prev):
-                        n2= True
-                        print("previous hash found...")
+            for AD in pow:
+                if(str(AD)==self.proof_of_work2):
+                    m2=True
 
-        e=0
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("block not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                for data2 in data1:
-                    if(data2==self.id):
-                        m2= True
-                        print("id found...")
+            for AE in date:
+                if(AE==self.date2):
+                    n2=True
+        except:
+            print("couldn't open Usedproducts.csv for reading scaned products")
 
-        f.close()
+
+        print(c2)
+        print(d2)
+        print(l2)
+        print(m2)
+        print(n2)
         if(c and d and l and m and n ):
             self.a=True
             
@@ -217,8 +186,7 @@ class verif:
             print("found")
         
         if(self.c=="found"):
-            abc =usedproduct.products
-            abc.setbals(abc,self.id2,self.prev2,self.date2,self.proof_of_work2,self.hash2)
+            abc =usedproduct.products(self.id2,self.prev2,self.date2,self.proof_of_work2,self.hash2)
 
 
 #abc = verif("00002a1ed4e1d1fb4562628271c21ff2e9b18b28f1edd073dcf623d329eda792","0","27-11-2020","817435.0","i5")

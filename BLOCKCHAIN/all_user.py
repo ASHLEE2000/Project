@@ -1,22 +1,23 @@
 import QR_gen
 import secrets
+import pandas as pd
 
 
 class users:
     user_name: str
     pass_word : str
     id: int
-    key='ff5877'
     key2= str
 
     def __init__(self,username:str,password:str, key:str):
-        if(self.key==key):
+        if(True):
             self.user_name=username
             self.pass_word= password
             self.key2 = secrets.token_hex(6)
             u.add_user(self)
             self.id=users.user_ID()
             QR_gen.user_qr(username,password,self.id,self.key2)
+            QR_gen.U_csv.print_to_file(QR_gen.U_csv)
 
     def get_key2(self):
         return self.key2
@@ -51,57 +52,27 @@ class list_of_users:
         file.close()
 
     def verify_user(id,user_name,password,key):
-        f = open('users.txt','r')
-        f_content= f.readlines()
-        a= ("user name:"+user_name)
-        b=("password:"+password)
-        k=("secret key 2:"+key)
+        
+        df2 = pd.read_csv("users.csv")
+        name = df2['user_name']
+        pwd = df2['password']
+        key_s = df2['key']
         c=False
         d=False
         l=False
-        e=0
         
-        for i in f_content:
-            e=(e+1)
-            if(e>100):
-                print("user not found...")
-                break
-            else:
-                g=i.split("\n")
-                print(g)
-                for h in g:
-                    if(h==k):
-                        l= True
-                        print("secret key found...")
-
-
-        for i in f_content:
-            e=(e+1)
-            if(e>100):
-                print("user not found...")
-                break
-            else:
-                g=i.split("\n")
-                print(g)
-                for h in g:
-                    if(h==a):
-                        c= True
-                        print("username found...")
-        e=0
-        for i in f_content:
-            e=(e+1)
-            if(e>100):
-                print("user not found...")
-                break
-            else:
-                g=i.split("\n")
-                #print(g)
-                for h in g:
-                    if(h==b):
-                        print("password found...")
-                        d= True
-                
-        f.close()
+        for Val1 in name:
+            if(Val1==user_name):
+                c=True
+        for Val2 in pwd:
+            if(str(Val2)==str(password)):
+                l=True
+        for Val3 in key_s:
+            if(Val3==key):
+                d=True
+        print(c)
+        print(l)
+        print(d)
         if(c and d and l):
             return True
         else:

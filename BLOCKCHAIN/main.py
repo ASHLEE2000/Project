@@ -1,12 +1,14 @@
 import fastapi
 
 from os import getcwd
+import os
+import reading_csv_product
+import reading_csv_used
 from fastapi import Request ,Depends, HTTPException, Form, UploadFile,File
 import chain
 import my_qr_scan
 import all_user
 import client
-import history
 #import server
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -15,7 +17,20 @@ from fastapi.security import OAuth2AuthorizationCodeBearer, OAuth2PasswordBearer
 
 
 
+
 app = fastapi.FastAPI()
+
+def hell():
+    try:
+        abcd = reading_csv_product.starting
+        abcd.print_testing(abcd)
+    except:
+        print("couldn't read from product CSV")
+    try:
+        ABCD= reading_csv_used.starting
+    except:
+        print("couldn't read from used products CSV")
+    
 #ser = serverEDIT.server_start()
 templates = Jinja2Templates(directory = "htmlfiles")
 staticfiles = StaticFiles(directory="./qrcodesImgs/")
@@ -35,6 +50,7 @@ async def get_current_user(token :str = Depends(oauth2_schema)):
 @app.get('/',response_class=HTMLResponse)
 def home(request : Request):
     context = {'request': request}
+    hell()
     return templates.TemplateResponse("home.html", context) 
 
 @app.post('/',response_class=HTMLResponse)
@@ -44,7 +60,7 @@ def home(request : Request):
 
 #second endpoint
 @app.post('/add_block',response_class=HTMLResponse)
-async def home(request : Request):
+async def home2(request : Request):
     context = {'request': request}
     return templates.TemplateResponse("log_in.html", context) 
 
@@ -71,12 +87,7 @@ async def e_block(request :Request, name: str= Form(...),id : str = Form(...), p
     b= chain.block.get_block_no(n1)
     c = chain.block.get_add(n1)
     d = c.split("/")
-    e= d[6]
-    try:
-        client.sending()
-    except Exception as z:
-            print(z)
-    
+    e= d[6]    
     #return FileResponse(f"./qrcodesImgs/{a}")
     return templates.TemplateResponse("blockEntered.html",{"request": request, "f":e, "e": c ,"e":c})
 
@@ -93,21 +104,20 @@ async def log_in(request :Request, Username: str= Form(...),password : str = For
 
 #seventh endpoint     
 @app.post('/verify_product',response_class=HTMLResponse)
-def home(request : Request):
+def verify(request : Request):
     context = {'request': request}
     return templates.TemplateResponse("scan.html", context) 
 
 #eigth endpoint
 @app.post('/sign_up_confirm', response_class=HTMLResponse)
-async def sign_up(request :Request):
+async def sign_up2(request :Request):
     return templates.TemplateResponse("enterblock.html",{"request": request} )
 
 
 @app.post('/about',response_class=HTMLResponse)
-def home(request : Request):
+def about(request : Request):
     context = {'request': request}
-    val = history.w.get_valuse()
-    return templates.TemplateResponse("about.html", {'request': request , 'value': val} ) 
+    return templates.TemplateResponse("about.html", context) 
 
 @app.post('/scan',response_class=HTMLResponse)
 async def scan_code(request :Request, qr_file: UploadFile = File(...)):
@@ -136,27 +146,26 @@ async def scan_code(request :Request, qr_file: UploadFile = File(...)):
     dat3 = dat2[4].split(': ')
     id = dat3[1]
     g = my_qr_scan.verif(hash,prev_hash,date,proof_of_work,id)
-    #my_qr_scan.verif.veri(hash,prev_hash,date,proof_of_work,id)
+    my_qr_scan.verif.veri(g)
     val= my_qr_scan.verif.veri(g)
     z="block found"
     y="details of the product..."
-    
     if (val=="found"):
-        a = history.write_file(hash,prev_hash,date,proof_of_work,id,z)
         return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':hash, 'prev_hash':prev_hash, 'id':id, 'date':date,'proof_of_work':proof_of_work,'e':z,'f':y}) 
-        
     if(val == "used"):
-        a = history.write_file(hash,prev_hash,date,proof_of_work,id,y)
         return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':"product scaned previously", 'prev_hash':"product scaned previously", 'id':"product scaned previously", 'date':"product scaned previously",'proof_of_work':"product scaned previously",'e':"this product was scanned previously",'f':"please contact the your product seller..."}) 
     else:
-        a = history.write_file(hash,prev_hash,date,proof_of_work,id,"invalid projects")
         return templates.TemplateResponse("blockEntered2.html", {'request': request, 'hash':"invalid details", 'prev_hash':"invalid details", 'id':"invalid details", 'date':"invalid details",'proof_of_work':"invalid details",'e':"this product is not in out data",'f':"please contact the your product seller..."}) 
     
 
 
 @app.get("/file/{name_file}")
 def get_file(name_file: str):
-    return FileResponse(path=getcwd() + "/qrcodesImgs/" + name_file)
+    c= os.path.abspath(name_file)
+    d="../qrcodesImgs/"
+    abs_file_path = os.path.join(c, d)
+    print(abs_file_path)
+    return FileResponse(abs_file_path+name_file)
   #chain.block(ID,name,price)
     #file_path = "/qrcodesImgs/"
     #c= QR_gen.QR_co.block_no
