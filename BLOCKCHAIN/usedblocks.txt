@@ -1,8 +1,8 @@
 **************************-block 1-*************************
-ID: 1135g7
-date of manufacturing: 27-11-2020
-proof of work: 11659098.0
+ID: A12
+date of manufacturing: 01-11-2022
+proof of work: 3345744964.0
 prev_hash: 0
-current_hash: 0000918ce6967f9113901ce6ae58de966b0163a6faac41121d9c153dc90bcec3
+current_hash: 0000b7f888bd09fa2b90144f5e0146f5bc34e44e2be3ecca24473765ae7376b5
  ************************************************************
 

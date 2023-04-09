@@ -3,7 +3,7 @@ import fastapi
 from os import getcwd
 import os
 import reading_csv_product
-import reading_csv_used
+import reading_DB
 from fastapi import Request ,Depends, HTTPException, Form, UploadFile,File
 import chain
 import my_qr_scan
@@ -27,7 +27,7 @@ def hell():
     except:
         print("couldn't read from product CSV")
     try:
-        ABCD= reading_csv_used.starting
+        ABCD= reading_DB.starting
     except:
         print("couldn't read from used products CSV")
     
@@ -50,7 +50,6 @@ async def get_current_user(token :str = Depends(oauth2_schema)):
 @app.get('/',response_class=HTMLResponse)
 def home(request : Request):
     context = {'request': request}
-    hell()
     return templates.TemplateResponse("home.html", context) 
 
 @app.post('/',response_class=HTMLResponse)

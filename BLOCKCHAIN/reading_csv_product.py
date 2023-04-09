@@ -1,31 +1,43 @@
 import pandas as pd
 import chain
+import pymongo
 
 class starting:
+
+    name=[]
+    id=[]
+    price=[]
+    date=[]
+    alldoc = []
     
     def print_testing(self):
-        df = pd.read_csv("products.csv")
-        name = df['name']
-        id = df['ID']
-        price = df['price']
-        date = df['date']
+        client = pymongo.MongoClient("mongodb://localhost:27017")
+        print("reading DB for products")
+        db = client['BLOCK_CHAIN']
+        collection = db['PRODUCTS ENTERED']
+        alldoc = collection.find({})
+
+            
+        for val in alldoc:
+            self.name.append(val['name'])
+
+
+        for val in alldoc:
+            self.id.append(val['_id'])
+
+
+        for val in alldoc:
+            self.price.append(val['price'])
+
+
+        for val in alldoc:
+            self.date.append(str(val['date']))
+        
         chain.l1.list1.clear()
-        a=[]
-        b=[]
-        c=[]
-        d=[]
-        print(name)
-        for i in name:
-            a.append(i)    
-        for j in id:
-            b.append(j)
-        for k in price:
-            c.append(k)
-        for l in date:
-            d.append(str(l))
         
         objs = []
-        for m in range(len(a)):
-            objs.append(chain.block(a[m],b[m],c[m],d[m]))
+        for m in range(len(self.name)):
+            objs.append(chain.block(self.name[m],self.id[m],self.price[m],self.date[m]))
+            print(m)
         
         

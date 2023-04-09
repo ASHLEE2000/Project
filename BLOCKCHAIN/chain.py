@@ -16,7 +16,7 @@ class block:
     a : QR_gen.QR_co
     d : str
     
-    def __init__(self,name, ID,price,date) -> None:
+    def __init__(self,name,ID,price,date) -> None:
         self.ID = ID
         self.name = name
         self.price = price

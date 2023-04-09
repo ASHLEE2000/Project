@@ -31,9 +31,9 @@ class QR_co:
         pt = os.path.join(f,c)
         if os.path.exists(pt):
             print("error creating QR code")
-        else:
-            b.save(c)
-            shutil.move(c, "C:/Users/Ashley/Desktop/BLOCKCHAIN/qrcodesImgs/")
+            os.remove(pt)
+        b.save(c)
+        shutil.move(c, "C:/Users/Ashley/Desktop/BLOCKCHAIN/qrcodesImgs/")
         self.d=c
         
             

@@ -2,6 +2,7 @@ import cv2
 import usedproduct
 import connecting_to_mongo
 import pandas as pd
+import pymongo
 
 class d_data:
     hash: str
@@ -21,11 +22,8 @@ class d_data:
         return reval
 
 class verif:
-    hash: str
-    prev: str
-    date : str
-    proof_of_work: str
-    id: str
+    
+    proof_of_work: float
     hash2: str
     prev2: str
     date2 : str
@@ -33,160 +31,49 @@ class verif:
     id2: str
     a = False
     b = False
-    c = "not found"
+    C = "not found"
 
     def __init__(self,hash,prev,date,proof_of_work,id):
-        self.hash=("current_hash: "+hash)
-        self.prev=("prev_hash: "+prev)
-        self.proof_of_work=( "proof of work: "+proof_of_work)
-        self.date=("date of manufacturing: "+date)
-        self.id=("ID: "+id)
         self.hash2=hash
         self.prev2=prev
         self.proof_of_work2=proof_of_work
         self.date2=date
         self.id2=id
+        self.proof_of_work=float(self.proof_of_work2)
         #print(self.hash,self.prev,self.proof_of_work,self.date,self.id)
         self.find_block()
 
     def veri(self):
-        return self.c
+        return self.C
 
     def find_block(self):
-        f = open('chain.txt','r')
-        f_content= f.readlines()
-        #print(f_content)
-        c=False
-        d=False
-        l=False
-        m=False
-        n=False
-        e=0
+        #reading database for the product
+        client = pymongo.MongoClient("mongodb://localhost:27017")
+        db = client['BLOCK_CHAIN']
+        collection = db['PRODUCTS ENTERED']
+        print('finding product')
+        one = collection.find_one({'_id': self.id2,'date':self.date2,'proof_of_work':self.proof_of_work, 'prev_hash':self.prev2,'current_hash':self.hash2})
+        c= True
+        if(one == None):
+            c = False
         
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("block not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                #print(data2,self.hash)
-                for data2 in data1:
-                    if(data2==self.hash):
-                        l= True
-                        print("hash found...")
-
-        e=0
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("proof of work not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                for data2 in data1:
-                    if(data2==self.proof_of_work):
-                        c= True
-                        print("proof of work found...")
-        e=0
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("date not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                for data2 in data1:
-                    if(data2==self.date):
-                        print("date found...")
-                        d= True
-
-        e=0
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("block not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                for data2 in data1:
-                    if(data2==self.prev):
-                        n= True
-                        print("previous hash found...")
-
-        e=0
-        for i in f_content:
-            e=(e+1)
-            if(e>20000):
-                print("block not found...")
-                break
-            else:
-                data1 = i.split("\n")
-                for data2 in data1:
-                    if(data2==self.id):
-                        m= True
-                        print("id found...")
-
-        f.close()
-
+        #reading database for the used product
+        collection2 = db['USED PRODUCTS ENTERED']
+        print('finding product in used list')
+        two = collection2.find_one({'_id': self.id2,'date':self.date2,'proof_of_work':self.proof_of_work2, 'prev_hash':self.prev2,'current_hash':self.hash2})
+        c2= True
+        if(two == None):
+            c2 = False
+            print("FALSE")
         
-        #print(f_content)
-        c2=False
-        d2=False
-        l2=False
-        m2=False
-        n2=False
-        try:
-            df3 = pd.read_csv("Usedproducts.csv")
-            p_h = df3['prev_hash']
-            id = df3['ID']
-            hash = df3['current_hash']
-            pow = df3['proof_of_work']
-            date = df3['date']
-
-            for AA in p_h:
-                if(str(AA)==self.prev2):
-                    c2=True
-            
-            for AB in id:
-                if(AB==self.id2):
-                    d2=True
-            
-            for AC in hash:
-                if(AC==self.hash2):
-                    l2=True
-
-            for AD in pow:
-                if(str(AD)==self.proof_of_work2):
-                    m2=True
-
-            for AE in date:
-                if(AE==self.date2):
-                    n2=True
-        except:
-            print("couldn't open Usedproducts.csv for reading scaned products")
-
-
-        print(c2)
-        print(d2)
-        print(l2)
-        print(m2)
-        print(n2)
-        if(c and d and l and m and n ):
-            self.a=True
-            
-        if(c2 and d2 and l2 and m2 and n2):
-            self.b=True
+        if(c and c2):
+            self.C = "used"
         
-        if(self.a and self.b):
-            self.c = "used"
-            print(self.b)
-        d=(not self.b)
-        if(self.a and d):
-            self.c = "found"
+        if(c and (not c2)):
+            self.C = "found"
             print("found")
         
-        if(self.c=="found"):
+        if(self.C=="found"):
             abc =usedproduct.products(self.id2,self.prev2,self.date2,self.proof_of_work2,self.hash2)
             ABC = connecting_to_mongo.enter_used_products_to_mongo(self.id2,self.prev2,self.date2,self.proof_of_work2,self.hash2)
 
