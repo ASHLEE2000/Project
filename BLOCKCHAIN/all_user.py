@@ -1,5 +1,6 @@
 import QR_gen
 import connecting_to_mongo
+import pymongo
 import secrets
 import pandas as pd
 
@@ -54,31 +55,15 @@ class list_of_users:
         file.close()
 
     def verify_user(id,user_name,password,key):
-        
-        df2 = pd.read_csv("users.csv")
-        name = df2['user_name']
-        pwd = df2['password']
-        key_s = df2['key']
-        c=False
-        d=False
-        l=False
-        
-        for Val1 in name:
-            if(Val1==user_name):
-                c=True
-        for Val2 in pwd:
-            if(str(Val2)==str(password)):
-                l=True
-        for Val3 in key_s:
-            if(Val3==key):
-                d=True
-        print(c)
-        print(l)
-        print(d)
-        if(c and d and l):
-            return True
-        else:
-            False
+        client = pymongo.MongoClient("mongodb://localhost:27017")
+        print('finding user')
+        db = client['BLOCK_CHAIN']
+        collection = db['USERS LIST']
+        one = collection.find_one({'USERNAME':user_name,'password':password, 'key':key})
+        if(one == None):
+            return False
+        else: return True
+            
 
 
 u = list_of_users
